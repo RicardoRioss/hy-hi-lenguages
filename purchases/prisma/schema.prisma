@@ -31,7 +31,7 @@ model Product {
 enum PurcaseStatus {
   PENDING
   APPROVED
-  FSAILED
+  FAILED
 }
 
 model Purchase {
