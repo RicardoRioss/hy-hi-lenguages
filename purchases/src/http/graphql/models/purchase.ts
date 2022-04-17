@@ -1,4 +1,3 @@
-/* eslint-disable prettier/prettier */
 import { Field, ID, ObjectType, registerEnumType } from '@nestjs/graphql';
 import { Product } from './product';
 
@@ -25,7 +24,7 @@ export class Purchase {
   createdAt: Date;
 
   @Field(() => Product)
-  product : Product;
+  product: Product;
 
   productId: string;
 }

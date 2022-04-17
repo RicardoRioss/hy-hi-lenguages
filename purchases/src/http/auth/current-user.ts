@@ -1,13 +1,9 @@
-/* eslint-disable prettier/prettier */
-import { ExecutionContext } from '@nestjs/common';
+import { createParamDecorator, ExecutionContext } from '@nestjs/common';
 import { GqlExecutionContext } from '@nestjs/graphql';
-import { createParamDecorator } from '@nestjs/common';
-
 
 export interface AuthUser {
   sub: string;
 }
-
 
 export const CurrentUser = createParamDecorator(
   (data: unknown, context: ExecutionContext): AuthUser => {

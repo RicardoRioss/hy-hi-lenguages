@@ -1,6 +1,5 @@
-/* eslint-disable prettier/prettier */
 import { Injectable } from '@nestjs/common';
-import slugify from 'slugify'
+import slugify from 'slugify';
 
 import { PrismaService } from '../database/prisma/prisma.service';
 
@@ -18,10 +17,10 @@ export class ProductsServices {
 
   getProductById(id: string) {
     return this.prisma.product.findUnique({
-      where: { 
+      where: {
         id,
-      }
-    })
+      },
+    });
   }
 
   async createProduct({ title }: CreateProductParams) {
@@ -29,14 +28,14 @@ export class ProductsServices {
       lower: true,
     });
 
-    const productWithSameSlug = await this.prisma.product.findUnique({ 
+    const productWithSameSlug = await this.prisma.product.findUnique({
       where: {
         slug,
-      }
+      },
     });
 
     if (productWithSameSlug) {
-      throw new Error("Another product with same slug already exists.");
+      throw new Error('Another product with same slug already exists.');
     }
 
     return this.prisma.product.create({

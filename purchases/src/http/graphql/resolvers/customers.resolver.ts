@@ -1,4 +1,3 @@
-/* eslint-disable prettier/prettier */
 import { UseGuards } from '@nestjs/common';
 import { Parent, Query, ResolveField, Resolver } from '@nestjs/graphql';
 import { CustomersService } from '../../../services/customers.service';
@@ -13,7 +12,7 @@ export class CustomerResolver {
   constructor(
     private customersService: CustomersService,
     private purchasesService: PurchasesService,
-    ) {}
+  ) {}
 
   // Criar
   @UseGuards(AuthorizationGuard)
@@ -23,7 +22,7 @@ export class CustomerResolver {
   }
 
   @ResolveField()
-  purchases(@Parent() customer: Customer,) {
-    return this.purchasesService.listAllFromCustomer(customer.id)
+  purchases(@Parent() customer: Customer) {
+    return this.purchasesService.listAllFromCustomer(customer.id);
   }
 }

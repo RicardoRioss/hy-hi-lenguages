@@ -1,6 +1,12 @@
-/* eslint-disable prettier/prettier */
 import { UseGuards } from '@nestjs/common';
-import { Args, Mutation, Parent, Query, ResolveField, Resolver } from '@nestjs/graphql';
+import {
+  Args,
+  Mutation,
+  Parent,
+  Query,
+  ResolveField,
+  Resolver
+} from '@nestjs/graphql';
 import { CustomersService } from '../../../services/customers.service';
 
 import { ProductsServices } from '../../../services/products.service';
@@ -18,7 +24,7 @@ export class PurchasesResolver {
     private purchasesService: PurchasesService,
     private productService: ProductsServices,
     private customersService: CustomersService,
-    ) {}
+  ) {}
 
   // Pesquisar
   @Query(() => [Purchase])
@@ -28,29 +34,29 @@ export class PurchasesResolver {
   }
 
   @ResolveField()
-  product(@Parent() purchase: Purchase,) {
-    return this.productService.getProductById(purchase.productId)
+  product(@Parent() purchase: Purchase) {
+    return this.productService.getProductById(purchase.productId);
   }
 
   @Mutation(() => Purchase)
   @UseGuards(AuthorizationGuard)
-  async createPurchase( 
-    @Args('data') data: CreatePurchaseInput, 
+  async createPurchase(
+    @Args('data') data: CreatePurchaseInput,
     @CurrentUser() user: AuthUser,
-    ) {
-      let customer = await this.customersService.getCustomerByAuthUserId(
-        user.sub
-      );
+  ) {
+    let customer = await this.customersService.getCustomerByAuthUserId(
+      user.sub,
+    );
 
-      if (!customer) {
-        customer = await this.customersService.createCustomer({ 
-          authUserId: user.sub,
-        })
-      }
-      
-      return this.purchasesService.createPurchase({
-        customerId: customer.id,
-        productId: data.productId,
-      })
+    if (!customer) {
+      customer = await this.customersService.createCustomer({
+        authUserId: user.sub,
+      });
     }
+
+    return this.purchasesService.createPurchase({
+      customerId: customer.id,
+      productId: data.productId,
+    });
+  }
 }
