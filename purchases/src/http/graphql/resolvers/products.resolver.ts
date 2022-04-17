@@ -10,6 +10,7 @@ import { Product } from '../models/product';
 @Resolver(() => Product)
 export class ProductsResolver {
   constructor(private productService: ProductsServices) {}
+
   // Pesquisar
   @Query(() => [Product])
   //@UseGuards(AuthorizationGuard)

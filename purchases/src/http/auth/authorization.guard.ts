@@ -34,7 +34,7 @@ export class AuthorizationGuard implements CanActivate {
 
     const { req, res } = GqlExecutionContext.create(context).getContext(); //para pegar o req e o res no GraphQL
 
-    const chekJWT = promisify(
+    const checkJWT = promisify(
       jwt({
         secret: expressJwtSecret({
           cache: true,
@@ -49,7 +49,7 @@ export class AuthorizationGuard implements CanActivate {
     );
 
     try {
-      await chekJWT(req, res);
+      await checkJWT(req, res);
       return true;
     } catch (err) {
       throw new UnauthorizedException(err);
